@@ -3,6 +3,9 @@ tursibNow
 
 Sibiu local public transportation for Android
 
+Requirements
+=========
+
 The user shall be able to see all the existing tursib buses.
 
 The user shall be able to select any of the existing tursib buses and see all the stations for that specific bus.
