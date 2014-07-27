@@ -13,6 +13,5 @@ namespace tursibNow.Model
         //name of the station
         public string Name { get; set; }
         public TimeTable TimeTable { get; set; }
-        
     }
 }

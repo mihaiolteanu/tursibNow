@@ -62,7 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity1.cs" />
+    <Compile Include="BusOverviewActivity.cs" />
+    <Compile Include="BusOverviewViewAdapter.cs" />
     <Compile Include="HtmlService\HtmlPageRetrieve.cs" />
     <Compile Include="HtmlService\HtmlServiceTursibRo.cs" />
     <Compile Include="HtmlService\IHtmlService.cs" />
@@ -79,9 +80,12 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\Layout\BusOverviewItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Layout\Main.axml" />
+    <AndroidResource Include="Resources\Layout\BusOverview.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />

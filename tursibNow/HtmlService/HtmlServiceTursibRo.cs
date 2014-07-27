@@ -71,9 +71,7 @@ namespace tursibNow.HtmlService
     /// </summary>
     public enum Direction
     {
-        //departure (romanian)
-        dus,
-        //arival (romanian)
-        intors
+        direct, //dus (romanian)
+        reverse //intors (romanian)
     }
 }
