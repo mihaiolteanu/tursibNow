@@ -18,9 +18,9 @@ namespace tursibNow.HtmlService
     public interface IHtmlService
     {
         /// <summary>
-        /// get a html page with all the bus numbers and names
+        /// get a html page with all the bus numbers and names (see the tursibHtmlSamples/BusOverview.htm for an example)
         /// </summary>
-        HtmlDocument BusOverview { get; }
+        HtmlDocument BusOverview();
 
         /// <summary>
         /// get a html page for a certain bus that contains all the bus stations
@@ -33,8 +33,10 @@ namespace tursibNow.HtmlService
         /// get a html page for a certain bus and a certain station number (station numbers are counted from 0 to the last station)
         /// that contains the bus timetable for that station
         /// </summary>
+        /// <param name="busNumber"></param>
         /// <param name="stationNumber"></param>
+        /// <param name="direction"></param>
         /// <returns></returns>
-        HtmlDocument BusTimetable(int stationNumber);
+        HtmlDocument BusTimetable(int busNumber, int stationNumber, Direction direction);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using Android.App;
 using Android.Content;
@@ -17,6 +18,14 @@ namespace tursibNow
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            //var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //var filename = Path.Combine(documents, "Write.txt");
+            //File.WriteAllText(filename, "Write this text into a file!");
+
+            var path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            path = Path.Combine(path, "tursibNow/testfile.txt");
+            File.WriteAllText(path, "Write this text into a file!");
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);

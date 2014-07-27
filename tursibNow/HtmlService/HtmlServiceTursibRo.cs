@@ -19,23 +19,21 @@ namespace tursibNow.HtmlService
     /// </summary>
     public class HtmlServiceTursibRo : IHtmlService
     {
-        //html page retriever
-        HtmlWeb web;
-        //tursib official web page
+        //tursib official web page - starting place for all html pages to be retrieved
         Uri tursibUri = new Uri("http://tursib.ro/");
 
-        public HtmlDocument BusOverview
+        /// <summary>
+        /// provides a html page with all the buses available from tursib
+        /// </summary>
+        public HtmlDocument BusOverview()
         {
-            get 
-            {
-                UriBuilder uriBuilder = new UriBuilder(tursibUri);
-                uriBuilder.Path += "/trasee";             
-                return web.Load(uriBuilder.Uri.ToString());
-            }
+            UriBuilder uriBuilder = new UriBuilder(tursibUri);
+            uriBuilder.Path += "/trasee";
+            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
         }
 
         /// <summary>
-        /// provides a html pages that contains the bus stations for a particular bus number
+        /// provides a html page that contains the bus stations for a particular bus number
         /// for example, for bus number 11, see http://tursib.ro/traseu/11
         /// </summary>
         /// <param name="busNumber"></param>
@@ -43,21 +41,39 @@ namespace tursibNow.HtmlService
         public HtmlDocument BusStation(int busNumber)
         {
             UriBuilder uriBuilder = new UriBuilder(tursibUri);
-            uriBuilder.Path += "traseu/";
-            uriBuilder.Path += busNumber;
+            uriBuilder.Path += "traseu/" + busNumber;
 
-            return web.Load(uriBuilder.Uri.ToString());
+            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
         }
 
         /// <summary>
-        /// provides a bust timetable for the specified station number
+        /// provides a html page with bus timetable for the specified bus number and station number
         /// </summary>
+        /// /// <param name="busNumber"></param>
         /// <param name="stationNumber">stations numbers are from 0 to n as they appear in the html page retrieve by the BusStation method</param>
         /// <returns></returns>
-        public HtmlDocument BusTimetable(int stationNumber)
+        /// <example>
+        /// http://tursib.ro/traseu/11/program?statie=0&dir=dus
+        /// first station (0) for bus 11, departure
+        /// </example>
+        public HtmlDocument BusTimetable(int busNumber, int stationNumber, Direction direction)
         {
             UriBuilder uriBuilder = new UriBuilder(tursibUri);
-            throw new NotImplementedException();
+            uriBuilder.Path += "traseu/" + busNumber + "/program";
+            uriBuilder.Query = "statie=" + stationNumber + "&dir=" + direction;
+
+            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
         }
+    }
+
+    /// <summary>
+    /// same station can be an arrival or departure point for a bus
+    /// </summary>
+    public enum Direction
+    {
+        //departure (romanian)
+        dus,
+        //arival (romanian)
+        intors
     }
 }
