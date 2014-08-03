@@ -22,17 +22,14 @@ namespace tursibNow
         ListView _busStationsReverseListView;
         BusStationsViewAdapter _adapterReverse;
 
-        TextView _busNo;
-        TextView _busName;
-
-        Bus bus;
+        Bus _bus;
 
         protected override void OnCreate(Bundle bundle)
         {
             if (Intent.HasExtra("busNumber"))
             {
                 string busNumber = Intent.GetStringExtra("busNumber");
-                bus = BusNetwork.Buses.Where(b => b.Number == busNumber).First();
+                _bus = BusNetwork.Buses.Where(b => b.Number == busNumber).First();
             }
 
             base.OnCreate(bundle);
@@ -40,20 +37,41 @@ namespace tursibNow
             SetContentView(Resource.Layout.BusStations);
 
             //display the bus number and name
-            _busNo = FindViewById<TextView>(Resource.Id.BusNoTextView);
-            _busName = FindViewById<TextView>(Resource.Id.BusNameTextView);
-            _busNo.Text = bus.Number;
-            _busName.Text = bus.Name;
+            FindViewById<TextView>(Resource.Id.BusNumberAndNameTextView).Text = _bus.Number + " - " + _bus.Name;
 
             //display all the direct stations for this bus
             _busStationsDirectListView = FindViewById<ListView>(Resource.Id.BusStationsDirectListView);
-            _adapterDirect = new BusStationsViewAdapter(this, bus, Direction.dus);
+            _adapterDirect = new BusStationsViewAdapter(this, _bus, Direction.dus);
             _busStationsDirectListView.Adapter = _adapterDirect;
 
             //display all the reverse stations for this bus
             _busStationsReverseListView = FindViewById<ListView>(Resource.Id.BusStationsReverseListView);
-            _adapterReverse = new BusStationsViewAdapter(this, bus, Direction.intors);
+            _adapterReverse = new BusStationsViewAdapter(this, _bus, Direction.intors);
             _busStationsReverseListView.Adapter = _adapterReverse;
+
+            _busStationsDirectListView.ItemClick += StationDirectClicked;
+            _busStationsReverseListView.ItemClick += StationReverseClicked;
+
+        }
+
+        protected void StationDirectClicked(object sender, ListView.ItemClickEventArgs e)
+        {
+            Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTableActivity));
+            stationTimeTableIntent.PutExtra("busNumber", _bus.Number);
+            stationTimeTableIntent.PutExtra("busStation", e.Id);
+            stationTimeTableIntent.PutExtra("busDirection", Direction.dus.ToString());
+
+            StartActivity(stationTimeTableIntent);
+        }
+
+        protected void StationReverseClicked(object sender, ListView.ItemClickEventArgs e)
+        {
+            Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTableActivity));
+            stationTimeTableIntent.PutExtra("busNumber", _bus.Number);
+            stationTimeTableIntent.PutExtra("busStation", e.Id);
+            stationTimeTableIntent.PutExtra("busDirection", Direction.intors.ToString());
+
+            StartActivity(stationTimeTableIntent);
         }
     }
 }

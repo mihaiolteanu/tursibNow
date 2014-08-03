@@ -14,7 +14,6 @@
         p1:id="@+id/BusNoTextView"
         p1:layout_marginRight="30.0dp"
         p1:textStyle="bold"
-        p1:textColor="@android:color/darker_gray"
         p1:textSize="16sp" />
     <TextView
         p1:text="BusName"

@@ -66,6 +66,7 @@
     <Compile Include="BusOverviewViewAdapter.cs" />
     <Compile Include="BusStationsActivity.cs" />
     <Compile Include="BusStationsViewAdapter.cs" />
+    <Compile Include="BusTimeTableActivity.cs" />
     <Compile Include="HtmlService\HtmlPageRetrieve.cs" />
     <Compile Include="HtmlService\HtmlServiceTursibRo.cs" />
     <Compile Include="HtmlService\HtmlServiceUtil.cs" />
@@ -90,6 +91,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BusStationsItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\BusTimetable.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

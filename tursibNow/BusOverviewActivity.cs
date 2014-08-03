@@ -32,8 +32,6 @@ namespace tursibNow
 
         protected void BusClicked(object sender, ListView.ItemClickEventArgs e)
         {
-            //Bus bus = BusNetwork.Buses.Find(b => b.Number == e.Id.ToString());
-
             Intent busStationsIntent = new Intent(this, typeof(BusStationsActivity));
             busStationsIntent.PutExtra("busNumber", e.Id.ToString());
 

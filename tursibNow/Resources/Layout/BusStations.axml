@@ -15,83 +15,75 @@
         p1:id="@+id/BusStationsNoAndNameListView"
         p1:padding="5dp">
         <TextView
-            p1:text="No"
-            p1:layout_width="70.0dp"
-            p1:layout_height="wrap_content"
-            p1:id="@+id/BusNoTextView"
-            p1:textSize="30sp"
-            p1:layout_marginRight="0.0dp"
-            p1:textStyle="bold" />
-        <TextView
-            p1:text="BusName"
-            p1:layout_width="169.3dp"
-            p1:layout_height="match_parent"
-            p1:id="@+id/BusNameTextView"
-            p1:textSize="18sp"
-            p1:layout_marginRight="0.0dp" />
-        <DigitalClock
-            p1:layout_width="wrap_content"
-            p1:layout_height="fill_parent"
-            p1:id="@+id/digitalClock1"
-            p1:visibility="visible"
-            p1:enabled="true" />
-    </LinearLayout>
-    <TextView
-        p1:text="Direct"
-        p1:layout_width="fill_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/textView1"
-        p1:padding="5dp" />
-    <ListView
-        p1:minWidth="25px"
-        p1:minHeight="25px"
-        p1:layout_width="fill_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/BusStationsDirectListView" />
-    <TextView
-        p1:text="Reverse"
-        p1:layout_width="fill_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/textView2"
-        p1:padding="5dp" />
-    <ListView
-        p1:minWidth="25px"
-        p1:minHeight="25px"
-        p1:layout_width="fill_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/BusStationsReverseListView" />
-    <TabHost
-        p1:minWidth="25px"
-        p1:minHeight="25px"
-        p1:layout_width="fill_parent"
-        p1:layout_height="wrap_content"
-        p1:id="@+id/tabHost1">
-        <LinearLayout
+            p1:text="BusNumberAndName"
             p1:layout_width="match_parent"
-            p1:layout_height="match_parent"
-            p1:orientation="vertical"
-            p1:id="@+id/linearLayout2">
-            <TabWidget
-                p1:id="@android:id/tabs"
-                p1:layout_width="match_parent"
-                p1:layout_height="wrap_content" />
-            <FrameLayout
-                p1:id="@android:id/tabcontent"
-                p1:layout_width="match_parent"
-                p1:layout_height="match_parent">
-                <LinearLayout
-                    p1:layout_width="match_parent"
-                    p1:layout_height="match_parent"
-                    p1:id="@+id/linearLayout3" />
-                <LinearLayout
-                    p1:layout_width="match_parent"
-                    p1:layout_height="match_parent"
-                    p1:id="@+id/linearLayout4" />
-                <LinearLayout
-                    p1:layout_width="match_parent"
-                    p1:layout_height="match_parent"
-                    p1:id="@+id/linearLayout5" />
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+            p1:layout_height="wrap_content"
+            p1:id="@+id/BusNumberAndNameTextView"
+            p1:textSize="22sp"
+            p1:layout_marginLeft="5dp"
+            p1:padding="5dp"
+            p1:textStyle="normal" />
+    </LinearLayout>
+    <TableLayout
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="fill_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/tableLayout1"
+        p1:stretchColumns="*">
+        <TableRow
+            p1:id="@+id/tableRow1"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_weight="2"
+            p1:scrollbarAlwaysDrawVerticalTrack="true">
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_column="0"
+                p1:id="@+id/linearLayout2">
+                <TextView
+                    p1:text="Direct Routes"
+                    p1:layout_width="fill_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textView6"
+                    p1:textSize="20dp"
+                    p1:textStyle="bold" />
+                <ListView
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="fill_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/BusStationsDirectListView" />
+            </LinearLayout>
+        </TableRow>
+        <TableRow
+            p1:id="@+id/tableRow2"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_weight="2"
+            p1:scrollbarAlwaysDrawVerticalTrack="true">
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_column="0"
+                p1:id="@+id/linearLayout3">
+                <TextView
+                    p1:text="Reverse Routes"
+                    p1:layout_width="fill_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textView7"
+                    p1:textSize="20dp"
+                    p1:textStyle="bold" />
+                <ListView
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="fill_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/BusStationsReverseListView" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>
