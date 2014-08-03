@@ -16,6 +16,8 @@ namespace tursibNow.HtmlService
 {
     public class HtmlPageRetrieve
     {
+        static string _path;
+        static string Path { get { return _path; } }
         static HtmlWeb web = new HtmlWeb();
 
         /// <summary>
@@ -23,12 +25,13 @@ namespace tursibNow.HtmlService
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static HtmlDocument Path(string path)
+        public static HtmlDocument FromPath(string path)
         {
+            _path = path;
             HtmlDocument doc = new HtmlDocument();
             try
             {
-                doc = web.Load(path);
+                doc = web.Load(_path);
             }
             catch (Exception e)
             {

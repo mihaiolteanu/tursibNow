@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Android.App;
 using Android.Content;
@@ -19,10 +20,18 @@ namespace tursibNow.Model
     /// </summary>
     public class BusNetwork
     {
-        //currently retrieves the bus network from web, every time the app is started
-        //TBD retrieve the bus network from locally stored/serialized JSON files
-        //TBD update the locallay stored JSON files from web only on demand
+        static string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path, "tursibNow");
+        
         static IHtmlService htmlService = new HtmlServiceTursibRo();
-        public static IEnumerable<Bus> Buses = new BusNetworkHtml(htmlService).Buses;
+        static BusNetworkJSON busNetworkJson = new BusNetworkJSON(path);
+        
+        public static List<Bus> Buses = busNetworkJson.Buses as List<Bus>;
+
+        static BusNetwork()
+        {
+            //busNetworkJson.SaveBusNetwork(new BusNetworkHtml(htmlService).Buses);
+        }
+        
+        //public static IEnumerable<Bus> Buses = new BusNetworkHtml(htmlService).Buses;
     }
 }

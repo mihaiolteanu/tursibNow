@@ -27,7 +27,7 @@ namespace tursibNow.HtmlService
         /// </summary>
         /// <param name="busNumber">the bus number for which the html page containing all the stations should be returned</param>
         /// <returns></returns>
-        HtmlDocument BusStation(int busNumber);
+        HtmlDocument BusStations(string busNumber);
 
         /// <summary>
         /// get a html page for a certain bus and a certain station number (station numbers are counted from 0 to the last station)
@@ -37,6 +37,6 @@ namespace tursibNow.HtmlService
         /// <param name="stationNumber"></param>
         /// <param name="direction"></param>
         /// <returns></returns>
-        HtmlDocument BusTimetable(int busNumber, int stationNumber, Direction direction);
+        HtmlDocument BusTimetable(string busNumber, string stationNumber, Direction direction);
     }
 }

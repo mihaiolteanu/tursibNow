@@ -14,4 +14,13 @@ namespace tursibNow.Model
         public string Name { get; set; }
         public TimeTable TimeTable { get; set; }
     }
+
+    /// <summary>
+    /// same station can be an arrival or departure point for a bus
+    /// </summary>
+    public enum Direction
+    {
+        dus, //direct (romanian)
+        intors //reverse (romanian)
+    }
 }

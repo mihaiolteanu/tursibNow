@@ -11,11 +11,12 @@ using Android.Views;
 using Android.Widget;
 
 using HtmlAgilityPack;
+using tursibNow.Model;
 
 namespace tursibNow.HtmlService
 {
     /// <summary>
-    /// implements the retrieval of html web pages containing bus info from www.tursib.ro
+    /// implements the retrieval of html web pages from www.tursib.ro
     /// </summary>
     public class HtmlServiceTursibRo : IHtmlService
     {
@@ -29,7 +30,7 @@ namespace tursibNow.HtmlService
         {
             UriBuilder uriBuilder = new UriBuilder(tursibUri);
             uriBuilder.Path += "/trasee";
-            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
+            return HtmlPageRetrieve.FromPath(uriBuilder.Uri.ToString());
         }
 
         /// <summary>
@@ -38,12 +39,12 @@ namespace tursibNow.HtmlService
         /// </summary>
         /// <param name="busNumber"></param>
         /// <returns></returns>
-        public HtmlDocument BusStation(int busNumber)
+        public HtmlDocument BusStations(string busNumber)
         {
             UriBuilder uriBuilder = new UriBuilder(tursibUri);
             uriBuilder.Path += "traseu/" + busNumber;
 
-            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
+            return HtmlPageRetrieve.FromPath(uriBuilder.Uri.ToString());
         }
 
         /// <summary>
@@ -56,22 +57,23 @@ namespace tursibNow.HtmlService
         /// http://tursib.ro/traseu/11/program?statie=0&dir=dus
         /// first station (0) for bus 11, departure
         /// </example>
-        public HtmlDocument BusTimetable(int busNumber, int stationNumber, Direction direction)
+        public HtmlDocument BusTimetable(string busNumber, string stationNumber, Direction direction)
         {
             UriBuilder uriBuilder = new UriBuilder(tursibUri);
             uriBuilder.Path += "traseu/" + busNumber + "/program";
             uriBuilder.Query = "statie=" + stationNumber + "&dir=" + direction;
 
-            return HtmlPageRetrieve.Path(uriBuilder.Uri.ToString());
+            return HtmlPageRetrieve.FromPath(uriBuilder.Uri.ToString());
         }
     }
 
     /// <summary>
-    /// same station can be an arrival or departure point for a bus
+    /// time table for a bus/station is different depending on the day of the week
     /// </summary>
-    public enum Direction
+    public static class TimeTableDay
     {
-        direct, //dus (romanian)
-        reverse //intors (romanian)
+        public static readonly string Weekdays = "Luni - Vineri";
+        public static readonly string Saturday = "Sambata";
+        public static readonly string Sunday = "Duminica";
     }
 }

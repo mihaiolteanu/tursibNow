@@ -7,26 +7,37 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using tursibNow.Model;
 
 namespace tursibNow
 {
-    [Activity(Label = "tursibNow", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "tursibNow", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Light.NoTitleBar.Fullscreen")]
     public class BusOverviewActivity : Activity
     {
+        ListView _busOverviewListView;
+        BusOverviewViewAdapter _adapter;
+
         protected override void OnCreate(Bundle bundle)
         {
-            //var path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            //path = Path.Combine(path, "tursibNow/testfile.txt");
-            //File.WriteAllText(path, "Write this text into a file!");
-
             base.OnCreate(bundle);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.BusOverview);
 
-            ListView busOverviewListView = FindViewById<ListView>(Resource.Id.BusOverviewListView);
-            BusOverviewViewAdapter adapter = new BusOverviewViewAdapter(this);
-            busOverviewListView.Adapter = adapter;
+            _busOverviewListView = FindViewById<ListView>(Resource.Id.BusOverviewListView);
+            _adapter = new BusOverviewViewAdapter(this);
+            _busOverviewListView.Adapter = _adapter;
+
+            _busOverviewListView.ItemClick += BusClicked;
+        }
+
+        protected void BusClicked(object sender, ListView.ItemClickEventArgs e)
+        {
+            //Bus bus = BusNetwork.Buses.Find(b => b.Number == e.Id.ToString());
+
+            Intent busStationsIntent = new Intent(this, typeof(BusStationsActivity));
+            busStationsIntent.PutExtra("busNumber", e.Id.ToString());
+
+            StartActivity(busStationsIntent);
         }
     }
 }

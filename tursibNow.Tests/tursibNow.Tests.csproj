@@ -50,6 +50,7 @@
     <Reference Include="Xamarin.Android.NUnitLite" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusNetworkJSONTest\BusNetworkJSONTest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="BusNetworkHtmlTest\BusNetworkHtmlTest.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

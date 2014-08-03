@@ -83,6 +83,16 @@ namespace tursibNow.Model
         /// <returns>path to where the json file for this bus is located</returns>
         private string GetFileName(string busNumber)
         {
+            // make all files have the bus number with 3 digits
+            if (busNumber.Length == 2)
+            {
+                busNumber = "0" + busNumber;
+            }
+            if (busNumber.Length == 1)
+            {
+                busNumber = "00" + busNumber;
+            }
+
             return Path.Combine(_storagePath, "bus_" + busNumber + ".json");
         }
     }

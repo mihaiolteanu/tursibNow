@@ -16,17 +16,19 @@ namespace tursibNow.Tests
 	public class BusNetworkHtmlTest
 	{
         IHtmlService htmlService;
-        BusNetworkHtml busNetwork;
         List<Bus> buses;
+
+        public BusNetworkHtmlTest()
+        {
+            //get html pages from local storage
+            htmlService = new MockHtmlService();
+            //build the bus network from local storage
+            buses = new BusNetworkHtml(htmlService).Buses as List<Bus>;
+        }
 
 		[SetUp]
 		public void Setup ()
 		{
-            //get html pages from local storage
-            htmlService = new MockHtmlService();
-            //build the bus network from local storage
-            busNetwork = new BusNetworkHtml(htmlService);
-            buses = busNetwork.Buses as List<Bus>;
 		}
 
 		[TearDown]
@@ -35,7 +37,7 @@ namespace tursibNow.Tests
 		}
 
 		[Test]
-        public void BusOverview_GetAllBuses()
+        public void GetAllBuses()
 		{
             Assert.AreEqual(21, buses.Count);
 		}
@@ -44,7 +46,7 @@ namespace tursibNow.Tests
         /// get some random bus numbers and verify they exist in the network with the correct name
         /// </summary>
         [Test]
-        public void BusOverview_GetBusNumberNamePair()
+        public void GetBusNumberNamePair()
         {
             Bus bus;
 
@@ -79,7 +81,7 @@ namespace tursibNow.Tests
         /// test for bus number 11
         /// </summary>
         [Test]
-        public void BusStation_GetAllStations()
+        public void GetAllStations()
         {
             Bus bus = buses.Find(b => b.Number == "11");
 
@@ -97,22 +99,22 @@ namespace tursibNow.Tests
         /// test if the station number correlates with the station name
         /// </summary>
         [Test]
-        public void BusStation_GetStationNumberName()
+        public void GetStationNumberName()
         {
             Bus bus = buses.Find(b => b.Number == "11");
             List<Station> stationsDirect = bus.DirectStations as List<Station>;
             List<Station> stationsReverse = bus.ReverseStations as List<Station>;
 
-            string station0Direct = "CEDONIA";
-            string station7Direct = "MC DONALD'S";
-            string station17Direct = "SC CONTINENTAL";
+            string station0Direct = "CEDONIA".ToLower();
+            string station7Direct = "MC DONALD'S".ToLower();
+            string station17Direct = "SC CONTINENTAL".ToLower();
             Assert.AreEqual(station0Direct, stationsDirect[0].Name);
             Assert.AreEqual(station7Direct, stationsDirect[7].Name);
-            Assert.AreEqual(station17Direct, stationsDirect[17].Name);
+            Assert.AreEqual(station17Direct, stationsDirect[16].Name);
 
-            string station0Reverse = "SC CONTINENTAL";
-            string station4Reverse = "AEROPORT 1";
-            string station23Reverse = "CEDONIA";
+            string station0Reverse = "SC CONTINENTAL".ToLower();
+            string station4Reverse = "AEROPORT 1".ToLower();
+            string station23Reverse = "CEDONIA".ToLower();
             Assert.AreEqual(station0Reverse, stationsReverse[0].Name);
             Assert.AreEqual(station4Reverse, stationsReverse[4].Name);
             Assert.AreEqual(station23Reverse, stationsReverse[23].Name);
@@ -123,7 +125,7 @@ namespace tursibNow.Tests
         /// we have the station 8 direct (turnisor) timetable for bus 11 in program11_08_turnisor_dus.htm
         /// </summary>
         [Test]
-        public void BusStationTimetable_GetAllTimes()
+        public void GetAllTimes()
         {
             //get bus 11
             Bus bus = buses.Find(b => b.Number == "11");
@@ -171,14 +173,15 @@ namespace tursibNow.Tests
         /// return a locally stored html page containing the bus station for the given bus number, as seen on tursib.ro/traseu/X, where X is the bus number
         /// </summary>
         /// <param name="busNumber">ignore this</param>
+        /// <param name="direction">ignore this</param>
         /// <returns></returns>
-        public HtmlDocument BusStation(int busNumber)
+        public HtmlDocument BusStations(string busNumber)
         {
             //getting the localy saved html page for bus number 11
-            string busOverviewPath = Path.Combine(path, "traseu11.htm");
-            HtmlDocument busOverviewHtml = new HtmlDocument();
-            busOverviewHtml.Load(busOverviewPath);
-            return busOverviewHtml;
+            string busStationsPath = Path.Combine(path, "traseu11.htm");
+            HtmlDocument busStationsHtml = new HtmlDocument();
+            busStationsHtml.Load(busStationsPath);
+            return busStationsHtml;
         }
 
         /// <summary>
@@ -188,13 +191,13 @@ namespace tursibNow.Tests
         /// <param name="stationNumber">ignore this</param>
         /// <param name="direction">ignore this</param>
         /// <returns></returns>
-        public HtmlDocument BusTimetable(int busNumber, int stationNumber, Direction direction)
+        public HtmlDocument BusTimetable(string busNumber, string stationNumber, Direction direction)
         {
             //getting the localy saved html for bus number 11 timetable for station number 8 (turnisor) dus
-            string busOverviewPath = Path.Combine(path, "program11_08_turnisor_dus.htm");
-            HtmlDocument busOverviewHtml = new HtmlDocument();
-            busOverviewHtml.Load(busOverviewPath);
-            return busOverviewHtml;
+            string busTimeTable = Path.Combine(path, "program11_08_turnisor_dus.htm");
+            HtmlDocument busTimeTableHtml = new HtmlDocument();
+            busTimeTableHtml.Load(busTimeTable);
+            return busTimeTableHtml;
         }
 
         public MockHtmlService()
