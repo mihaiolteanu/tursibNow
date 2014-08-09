@@ -8,11 +8,26 @@ namespace tursibNow.Model
 {
     //one bus stop
     //every bus bas multiple stops
-    public class Station
+    public class Station : IHasLabel, IComparable<Station>
     {
         //name of the station
         public string Name { get; set; }
         public TimeTable TimeTable { get; set; }
+
+        public string Label
+        {
+            get { return Name[0].ToString(); }
+        }
+
+        public int CompareTo(Station other)
+        {
+            return Name.CompareTo(other.Name);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     /// <summary>

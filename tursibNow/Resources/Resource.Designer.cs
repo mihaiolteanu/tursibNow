@@ -111,6 +111,12 @@ namespace tursibNow
 			// aapt resource value: 0x7f050017
 			public const int linearLayout4 = 2131034135;
 			
+			// aapt resource value: 0x7f05001a
+			public const int list_header_title = 2131034138;
+			
+			// aapt resource value: 0x7f05001b
+			public const int list_item_title = 2131034139;
+			
 			// aapt resource value: 0x7f050007
 			public const int tableLayout1 = 2131034119;
 			
@@ -165,6 +171,15 @@ namespace tursibNow
 			
 			// aapt resource value: 0x7f030004
 			public const int BusTimetable = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int ListHeader = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int ListItem = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int Main = 2130903047;
 			
 			static Layout()
 			{

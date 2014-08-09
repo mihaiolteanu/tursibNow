@@ -14,12 +14,13 @@
         p1:id="@+id/BusNoTextView"
         p1:layout_marginRight="30.0dp"
         p1:textStyle="bold"
-        p1:textSize="16sp" />
+        p1:textAppearance="?android:attr/textAppearanceMedium" />
     <TextView
         p1:text="BusName"
         p1:layout_width="match_parent"
         p1:layout_height="fill_parent"
         p1:id="@+id/BusNameTextView"
         p1:layout_marginLeft="0.0dp"
-        p1:layout_marginTop="1.5dp" />
+        p1:layout_marginTop="1.5dp"
+        p1:textAppearance="?android:attr/textAppearanceMedium" />
 </LinearLayout>

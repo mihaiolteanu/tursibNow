@@ -1,31 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
 using tursibNow.Model;
+using tursibNow.Utils;
 
 namespace tursibNow
 {
-    [Activity(Label = "Bus Stations", Theme = "@android:style/Theme.Light.NoTitleBar.Fullscreen")]
-    public class BusStationsActivity : Activity
+    [Activity(Label = "Bus Stations", Theme = "@android:style/Theme.Light")]
+    public class BusStationsActivity : ListActivity
     {
-        ListView _busStationsDirectListView;
-        BusStationsViewAdapter _adapterDirect;
-        ListView _busStationsReverseListView;
-        BusStationsViewAdapter _adapterReverse;
-
         Bus _bus;
 
         protected override void OnCreate(Bundle bundle)
         {
+            // Extract the bus for which the activity was created
             if (Intent.HasExtra("busNumber"))
             {
                 string busNumber = Intent.GetStringExtra("busNumber");
@@ -34,44 +29,67 @@ namespace tursibNow
 
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.BusStations);
+            SetContentView(Resource.Layout.Main);
 
-            //display the bus number and name
-            FindViewById<TextView>(Resource.Id.BusNumberAndNameTextView).Text = _bus.Number + " - " + _bus.Name;
+            // Labels for each stations list
+            Dictionary<string, List<Station>> busStationsLabels = new Dictionary<string, List<Station>>
+            {
+                {"Direct Routes", _bus.DirectStations.ToList()},
+                {"Reverse Routes", _bus.ReverseStations.ToList()}
+            };
 
-            //display all the direct stations for this bus
-            _busStationsDirectListView = FindViewById<ListView>(Resource.Id.BusStationsDirectListView);
-            _adapterDirect = new BusStationsViewAdapter(this, _bus, Direction.dus);
-            _busStationsDirectListView.Adapter = _adapterDirect;
-
-            //display all the reverse stations for this bus
-            _busStationsReverseListView = FindViewById<ListView>(Resource.Id.BusStationsReverseListView);
-            _adapterReverse = new BusStationsViewAdapter(this, _bus, Direction.intors);
-            _busStationsReverseListView.Adapter = _adapterReverse;
-
-            _busStationsDirectListView.ItemClick += StationDirectClicked;
-            _busStationsReverseListView.ItemClick += StationReverseClicked;
-
+            var adapter = CreateAdapter(busStationsLabels);
+            ListAdapter = adapter;
+            
         }
 
-        protected void StationDirectClicked(object sender, ListView.ItemClickEventArgs e)
+        public override void OnAttachedToWindow() 
+        { 
+            base.OnAttachedToWindow(); 
+            Window.SetTitle(_bus.Number + " - " + _bus.Name); 
+        }
+
+        protected override void OnListItemClick(ListView l, View v, int position, long id)
         {
+            var calculatedId = id;
+            // The direct stations label adds one more list item
+            calculatedId--;
+
             Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTableActivity));
             stationTimeTableIntent.PutExtra("busNumber", _bus.Number);
-            stationTimeTableIntent.PutExtra("busStation", e.Id);
-            stationTimeTableIntent.PutExtra("busDirection", Direction.dus.ToString());
 
+            int nDirectStations = _bus.DirectStations.ToList().Count;
+            // Choose what station direction list to use to extract the time table info
+            if (calculatedId <= nDirectStations)
+            {
+                // The user clicked on a direct station. The id is correct as it is.
+                stationTimeTableIntent.PutExtra("busDirection", Direction.dus.ToString());
+            }
+            else
+            {
+                // The user clicked on a reverse station.
+                stationTimeTableIntent.PutExtra("busDirection", Direction.intors.ToString());
+
+                // This includes an additional label which adds one more list item.
+                calculatedId--;
+
+                // Ignore the direct station list items, as we're in the reverse station list items
+                calculatedId = calculatedId - nDirectStations;
+            }
+            stationTimeTableIntent.PutExtra("busStation", calculatedId);
             StartActivity(stationTimeTableIntent);
         }
 
-        protected void StationReverseClicked(object sender, ListView.ItemClickEventArgs e)
+        SeparatedListAdapter CreateAdapter<T>(Dictionary<string, List<T>> sortedObjects) where T : IHasLabel, IComparable<T>
         {
-            Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTableActivity));
-            stationTimeTableIntent.PutExtra("busNumber", _bus.Number);
-            stationTimeTableIntent.PutExtra("busStation", e.Id);
-            stationTimeTableIntent.PutExtra("busDirection", Direction.intors.ToString());
-
-            StartActivity(stationTimeTableIntent);
+            var adapter = new SeparatedListAdapter(this);
+            foreach (var e in sortedObjects.OrderBy(de => de.Key))
+            {
+                var label = e.Key;
+                var section = e.Value;
+                adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.ListItem, section));
+            }
+            return adapter;
         }
     }
 }

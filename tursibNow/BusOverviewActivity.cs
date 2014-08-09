@@ -11,7 +11,7 @@ using tursibNow.Model;
 
 namespace tursibNow
 {
-    [Activity(Label = "tursibNow", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Light.NoTitleBar.Fullscreen")]
+    [Activity(Label = "tursibNow", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Light")]
     public class BusOverviewActivity : Activity
     {
         ListView _busOverviewListView;
