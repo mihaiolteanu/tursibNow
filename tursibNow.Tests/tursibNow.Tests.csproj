@@ -70,9 +70,17 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\tursibNow\tursibNow.csproj">
-      <Project>{cfb73f9c-c81c-4efc-9444-d94f1b917555}</Project>
-      <Name>tursibNow</Name>
+    <ProjectReference Include="..\tursibNow.Core\tursibNow.Core.csproj">
+      <Project>{1e573c78-99ce-46a0-a898-694817c84f87}</Project>
+      <Name>tursibNow.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tursibNow.Data\tursibNow.Data.csproj">
+      <Project>{397dc75a-74c3-4396-b8f9-7688630ce266}</Project>
+      <Name>tursibNow.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tursibNow.Model\tursibNow.Model.csproj">
+      <Project>{3df4025d-1cd1-4491-bf69-ee0c836d02c4}</Project>
+      <Name>tursibNow.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using HtmlAgilityPack;
-using tursibNow.HtmlService;
+
 using tursibNow.Model;
+using tursibNow.Data;
 
 namespace tursibNow.Tests
 {
@@ -149,21 +150,28 @@ namespace tursibNow.Tests
 	}
 
     /// <summary>
-    /// retrieve local saved html pages (save in shell/emulated/0/tursibNow)
+    /// Mock the html service to retrieve local saved html pages (save in shell/emulated/0/tursibNow)
     /// </summary>
     class MockHtmlService : IHtmlService
     {
         //locally stored html files
-        string path;
+        string _storagePath;
+
+        public MockHtmlService()
+        {
+            // Get external address; create this by hand and add the specific html files (shell/emulated/0/tursibNow)
+            _storagePath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            _storagePath = Path.Combine(_storagePath, "tursibNow");
+        }
 
         /// <summary>
-        /// return a locally stored html page containing the bus overview, as seen on tursib.ro/trasee
+        /// Return a locally stored html page containing the bus overview, as seen on tursib.ro/trasee
         /// </summary>
         /// <returns></returns>
         public HtmlDocument BusOverview()
         {
             //21 different bus numbers/names
-            string busOverviewPath = Path.Combine(path, "trasee.htm");
+            string busOverviewPath = Path.Combine(_storagePath, "trasee.htm");
             HtmlDocument busOverviewHtml = new HtmlDocument();
             busOverviewHtml.Load(busOverviewPath);
             return busOverviewHtml;
@@ -178,7 +186,7 @@ namespace tursibNow.Tests
         public HtmlDocument BusStations(string busNumber)
         {
             //getting the localy saved html page for bus number 11
-            string busStationsPath = Path.Combine(path, "traseu11.htm");
+            string busStationsPath = Path.Combine(_storagePath, "traseu11.htm");
             HtmlDocument busStationsHtml = new HtmlDocument();
             busStationsHtml.Load(busStationsPath);
             return busStationsHtml;
@@ -194,17 +202,10 @@ namespace tursibNow.Tests
         public HtmlDocument BusTimetable(string busNumber, string stationNumber, Direction direction)
         {
             //getting the localy saved html for bus number 11 timetable for station number 8 (turnisor) dus
-            string busTimeTable = Path.Combine(path, "program11_08_turnisor_dus.htm");
+            string busTimeTable = Path.Combine(_storagePath, "program11_08_turnisor_dus.htm");
             HtmlDocument busTimeTableHtml = new HtmlDocument();
             busTimeTableHtml.Load(busTimeTable);
             return busTimeTableHtml;
-        }
-
-        public MockHtmlService()
-        {
-            //get external address; create this by hand and add the specific html files (shell/emulated/0/tursibNow)
-            path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            path = Path.Combine(path, "tursibNow");
         }
     }
 }

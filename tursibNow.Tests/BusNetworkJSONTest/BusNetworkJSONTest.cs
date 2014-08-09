@@ -4,29 +4,31 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using HtmlAgilityPack;
-using tursibNow.HtmlService;
+
 using tursibNow.Model;
+using tursibNow.Data;
 
 namespace tursibNow.Tests
 {
     /// <summary>
-    /// tests the correct saving and retrieving of bus network info to and from JSON files
+    /// Tests the correct saving and retrieving of bus network info to and from JSON files
     /// </summary>
     [TestFixture]
     public class BusNetworkJSONTest
     {
-        string storagePath;
-        BusNetworkJSON busNetworkJSON;
+        // Path for temporarily storing json files used for test purposes
+        string _storagePath;
+        BusNetworkJson _busNetworkJSON;
         List<Bus> buses;
 
         public BusNetworkJSONTest()
         {
-            storagePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            busNetworkJSON = new BusNetworkJSON(storagePath);
+            _storagePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            _busNetworkJSON = new BusNetworkJson(_storagePath);
 
-            //create a network with two buses
             buses = new List<Bus>
             {
+            #region Create a network with two buses.
                 new Bus()
                 {
                     Name = "Cedonia - SC Continental",
@@ -84,6 +86,7 @@ namespace tursibNow.Tests
                         }
                     }
                 }
+            #endregion
             };
         }
 
@@ -91,7 +94,7 @@ namespace tursibNow.Tests
         public void Setup()
         {
             //clear any existing json files
-            foreach (string filename in Directory.EnumerateFiles(storagePath, "*.json"))
+            foreach (string filename in Directory.EnumerateFiles(_storagePath, "*.json"))
             {
                 File.Delete(filename);
             }
@@ -102,14 +105,17 @@ namespace tursibNow.Tests
         {
         }
 
+        /// <summary>
+        /// Test if there is one json file saved for each bus in the bus network.
+        /// </summary>
         [Test]
         public void SaveBusNetwork_CorrectNumberOfFiles()
         {
-            busNetworkJSON.SaveBusNetwork(buses);
+            _busNetworkJSON.SaveBusNetwork(buses);
 
             //count the number of save json files
             int jsonFiles = 0;
-            foreach (string filename in Directory.EnumerateFiles(storagePath, "*.json"))
+            foreach (string filename in Directory.EnumerateFiles(_storagePath, "*.json"))
             {
                 jsonFiles++;
             }
@@ -117,20 +123,26 @@ namespace tursibNow.Tests
             Assert.AreEqual(2, jsonFiles);
         }
 
+        /// <summary>
+        /// Test if there is one bus bus received in the bus network for each existing json file
+        /// </summary>
         [Test]
         public void RetrieveBusNetwork_CorrectNumberOfBuses()
         {
-            busNetworkJSON.SaveBusNetwork(buses);
-            List<Bus> retrievedBuses = busNetworkJSON.Buses as List<Bus>;
+            _busNetworkJSON.SaveBusNetwork(buses);
+            List<Bus> retrievedBuses = _busNetworkJSON.Buses as List<Bus>;
 
             Assert.AreEqual(2, retrievedBuses.Count);
         }
 
+        /// <summary>
+        /// Test if the saved json file contains the right bus infos
+        /// </summary>
         [Test]
         public void RetrieveBusNetwork_CorrectContents()
         {
-            busNetworkJSON.SaveBusNetwork(buses);
-            List<Bus> retrievedBuses = busNetworkJSON.Buses as List<Bus>;
+            _busNetworkJSON.SaveBusNetwork(buses);
+            List<Bus> retrievedBuses = _busNetworkJSON.Buses as List<Bus>;
 
             Bus bus1 = retrievedBuses.Find(b => b.Name == "Cedonia - SC Continental");
             Bus bus2 = retrievedBuses.Find(b => b.Name == "Strand - Gara");
