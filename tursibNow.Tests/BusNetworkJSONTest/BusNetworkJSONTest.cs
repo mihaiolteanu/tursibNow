@@ -111,7 +111,7 @@ namespace tursibNow.Tests
         [Test]
         public void SaveBusNetwork_CorrectNumberOfFiles()
         {
-            _busNetworkJSON.SaveBusNetwork(buses);
+            _busNetworkJSON.Save(buses);
 
             //count the number of save json files
             int jsonFiles = 0;
@@ -129,7 +129,7 @@ namespace tursibNow.Tests
         [Test]
         public void RetrieveBusNetwork_CorrectNumberOfBuses()
         {
-            _busNetworkJSON.SaveBusNetwork(buses);
+            _busNetworkJSON.Save(buses);
             List<Bus> retrievedBuses = _busNetworkJSON.Buses as List<Bus>;
 
             Assert.AreEqual(2, retrievedBuses.Count);
@@ -141,7 +141,7 @@ namespace tursibNow.Tests
         [Test]
         public void RetrieveBusNetwork_CorrectContents()
         {
-            _busNetworkJSON.SaveBusNetwork(buses);
+            _busNetworkJSON.Save(buses);
             List<Bus> retrievedBuses = _busNetworkJSON.Buses as List<Bus>;
 
             Bus bus1 = retrievedBuses.Find(b => b.Name == "Cedonia - SC Continental");

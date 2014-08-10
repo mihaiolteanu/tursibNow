@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
@@ -15,7 +11,7 @@ using tursibNow.Model;
 
 namespace tursibNow.AndroidUI
 {
-    [Activity(Label = "BusTimeTable", Theme = "@android:style/Theme.Light")]
+    [Activity(Label = "BusTimeTable")]
     public class BusTimeTableActivity : Activity
     {
         TimeTable _stationTimetable = new TimeTable();
@@ -30,70 +26,49 @@ namespace tursibNow.AndroidUI
                 int busStation = (int)Intent.GetLongExtra("busStation", 0);
                 string direction = Intent.GetStringExtra("busDirection");
 
-                if (direction == Direction.dus.ToString())
-                {
-                    // Get timetable / direct.
-                    _stationTimetable =
-                        (from bus in BusNetwork.Buses
-                        where bus.Number == _busNumber
-                        select bus.DirectStations.ElementAt(busStation).TimeTable)
-                        .First();
-
-                    // Get station name / direct.
-                    _stationName = 
-                        (from bus in BusNetwork.Buses
-                        where bus.Number == _busNumber
-                        select bus.DirectStations.ElementAt(busStation).Name)
-                        .First();
-                }
-                
-                if (direction == Direction.intors.ToString())
-                {
-                    //get timetable / reverse
-                    _stationTimetable =
-                        (from bus in BusNetwork.Buses
-                         where bus.Number == _busNumber
-                         select bus.ReverseStations.ElementAt(busStation).TimeTable)
-                        .First();
-
-                    //get station name / reverse
-                    _stationName = 
-                        (from bus in BusNetwork.Buses
-                        where bus.Number == _busNumber
-                        select bus.ReverseStations.ElementAt(busStation).Name)
-                        .First();
-                }
+                GetStationInfo(busStation, direction, out _stationName, out _stationTimetable);
             }
 
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.BusTimetable);
 
-            TextView weekdaysTextView = FindViewById<TextView>(Resource.Id.StationsWeekdaysTextView);
-            TextView saturdayTextView = FindViewById<TextView>(Resource.Id.StationsSaturdayTextView);
-            TextView sundayTextView   = FindViewById<TextView>(Resource.Id.StationsSundayTextView);
+            FindViewById<TextView>(Resource.Id.StationsWeekdaysTextView).Text =
+                _stationTimetable.WeekDays.DateTimeListToString();
+            FindViewById<TextView>(Resource.Id.StationsSaturdayTextView).Text =
+                _stationTimetable.Saturday.DateTimeListToString();
+            FindViewById<TextView>(Resource.Id.StationsSundayTextView).Text =
+                _stationTimetable.Sunday.DateTimeListToString();
+        }
 
-            weekdaysTextView.Text = TimeTableToString(_stationTimetable.WeekDays);
-            saturdayTextView.Text = TimeTableToString(_stationTimetable.Saturday);
-            sundayTextView.Text   = TimeTableToString(_stationTimetable.Sunday);
-            
+        /// <summary>
+        /// Get the station name and time table based on the station number and direction
+        /// </summary>
+        /// <param name="busStation"></param>
+        /// <param name="direction"></param>
+        /// <param name="stationName"></param>
+        /// <param name="timeTable"></param>
+        public void GetStationInfo(int busStation, string direction, out string stationName, out TimeTable timeTable)
+        {
+            stationName = (from bus in BusNetwork.Buses
+                           where bus.Number == _busNumber
+                           select direction == Direction.dus.ToString() ? 
+                                bus.DirectStations.ElementAt(busStation).Name : 
+                                bus.ReverseStations.ElementAt(busStation).Name
+                          ).First();
+
+            timeTable = (from bus in BusNetwork.Buses
+                         where bus.Number == _busNumber
+                         select direction == Direction.dus.ToString() ? 
+                                bus.DirectStations.ElementAt(busStation).TimeTable :
+                                bus.ReverseStations.ElementAt(busStation).TimeTable 
+                        ).First();
         }
 
         public override void OnAttachedToWindow()
         {
             base.OnAttachedToWindow();
-            Window.SetTitle(_busNumber + " - " + _stationName);
-        }
-
-        private string TimeTableToString(IEnumerable<DateTime> timetable)
-        {
-            string toReturn = string.Empty;
-
-            foreach (DateTime time in timetable)
-            {
-                toReturn += time.Hour + ":" + time.Minute + ", ";
-            }
-            return toReturn;
+            Window.SetTitle(_busNumber + " - " + _stationName.ToUpper());
         }
     }
 }

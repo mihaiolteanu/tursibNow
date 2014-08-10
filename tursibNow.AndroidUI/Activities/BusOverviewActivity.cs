@@ -7,11 +7,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using tursibNow.Model;
+using tursibNow.Core;
 
 namespace tursibNow.AndroidUI
 {
-    [Activity(Label = "tursibNow", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Light")]
+    [Activity(Label = "tursibNow", MainLauncher = true)]
     public class BusOverviewActivity : Activity
     {
         ListView _busOverviewListView;
@@ -22,6 +22,9 @@ namespace tursibNow.AndroidUI
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.BusOverview);
+
+            // Set the storage path for the bus info saving/retrieving files
+            BusNetwork.StoragePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path, "tursibNow");
 
             _busOverviewListView = FindViewById<ListView>(Resource.Id.BusOverviewListView);
             _adapter = new BusOverviewViewAdapter(this);

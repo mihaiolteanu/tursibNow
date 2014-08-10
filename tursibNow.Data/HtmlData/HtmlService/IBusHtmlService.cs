@@ -6,7 +6,7 @@ namespace tursibNow.Data
     /// <summary>
     /// Retrieves html pages containing information about the buses.
     /// </summary>
-    public interface IHtmlService
+    public interface IBusHtmlService
     {
         /// <summary>
         /// Get a html page with all the bus numbers and names (see the tursibHtmlSamples/BusOverview.htm for an example, or tursib.ro/trasee).

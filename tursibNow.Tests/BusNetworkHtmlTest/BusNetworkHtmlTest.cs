@@ -16,26 +16,21 @@ namespace tursibNow.Tests
 	[TestFixture]
 	public class BusNetworkHtmlTest
 	{
-        IHtmlService htmlService;
+        IBusHtmlService htmlService;
         List<Bus> buses;
 
         public BusNetworkHtmlTest()
         {
-            //get html pages from local storage
-            htmlService = new MockHtmlService();
-            //build the bus network from local storage
+            // Get html pages from local storage
+            // Create this by hand and add the html files found in this test to shell/emulated/0/tursibNow
+            string storagePath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            storagePath = Path.Combine(storagePath, "tursibNow");
+            
+            htmlService = new MockHtmlService(storagePath);
+            
+            // Build the bus network from local storage
             buses = new BusNetworkHtml(htmlService).Buses as List<Bus>;
         }
-
-		[SetUp]
-		public void Setup ()
-		{
-		}
-
-		[TearDown]
-		public void TearDown()
-		{
-		}
 
 		[Test]
         public void GetAllBuses()
@@ -43,9 +38,7 @@ namespace tursibNow.Tests
             Assert.AreEqual(21, buses.Count);
 		}
 
-        /// <summary>
-        /// get some random bus numbers and verify they exist in the network with the correct name
-        /// </summary>
+        // get some random bus numbers and verify they exist in the network with the correct name
         [Test]
         public void GetBusNumberNamePair()
         {
@@ -77,10 +70,8 @@ namespace tursibNow.Tests
             Assert.AreEqual(busName22, bus.Name);
         }
 
-        /// <summary>
-        /// test if we get all the existing stations, in both ways (direct and reverse)
-        /// test for bus number 11
-        /// </summary>
+        // Test if we get all the existing stations, in both ways (direct and reverse)
+        // Test for bus number 11
         [Test]
         public void GetAllStations()
         {
@@ -148,64 +139,4 @@ namespace tursibNow.Tests
             Assert.AreEqual(21, timeTableSunday.Count);
         }
 	}
-
-    /// <summary>
-    /// Mock the html service to retrieve local saved html pages (save in shell/emulated/0/tursibNow)
-    /// </summary>
-    class MockHtmlService : IHtmlService
-    {
-        //locally stored html files
-        string _storagePath;
-
-        public MockHtmlService()
-        {
-            // Get external address; create this by hand and add the specific html files (shell/emulated/0/tursibNow)
-            _storagePath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            _storagePath = Path.Combine(_storagePath, "tursibNow");
-        }
-
-        /// <summary>
-        /// Return a locally stored html page containing the bus overview, as seen on tursib.ro/trasee
-        /// </summary>
-        /// <returns></returns>
-        public HtmlDocument BusOverview()
-        {
-            //21 different bus numbers/names
-            string busOverviewPath = Path.Combine(_storagePath, "trasee.htm");
-            HtmlDocument busOverviewHtml = new HtmlDocument();
-            busOverviewHtml.Load(busOverviewPath);
-            return busOverviewHtml;
-        }
-
-        /// <summary>
-        /// return a locally stored html page containing the bus station for the given bus number, as seen on tursib.ro/traseu/X, where X is the bus number
-        /// </summary>
-        /// <param name="busNumber">ignore this</param>
-        /// <param name="direction">ignore this</param>
-        /// <returns></returns>
-        public HtmlDocument BusStations(string busNumber)
-        {
-            //getting the localy saved html page for bus number 11
-            string busStationsPath = Path.Combine(_storagePath, "traseu11.htm");
-            HtmlDocument busStationsHtml = new HtmlDocument();
-            busStationsHtml.Load(busStationsPath);
-            return busStationsHtml;
-        }
-
-        /// <summary>
-        /// return a locally stored html page containing the bus timetable for a given bus station, as seen on tursib.ro/traseu/X/program?statie=Y&dir=Z, where X is the bus number, Y the station number and Z the direction
-        /// </summary>
-        /// <param name="busNumber">ignore this</param>
-        /// <param name="stationNumber">ignore this</param>
-        /// <param name="direction">ignore this</param>
-        /// <returns></returns>
-        public HtmlDocument BusTimetable(string busNumber, string stationNumber, Direction direction)
-        {
-            //getting the localy saved html for bus number 11 timetable for station number 8 (turnisor) dus
-            string busTimeTable = Path.Combine(_storagePath, "program11_08_turnisor_dus.htm");
-            HtmlDocument busTimeTableHtml = new HtmlDocument();
-            busTimeTableHtml.Load(busTimeTable);
-            return busTimeTableHtml;
-        }
-    }
 }

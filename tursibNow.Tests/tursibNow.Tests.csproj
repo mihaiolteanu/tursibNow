@@ -53,8 +53,11 @@
     <Compile Include="BusNetworkJSONTest\BusNetworkJSONTest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="BusNetworkHtmlTest\BusNetworkHtmlTest.cs" />
+    <Compile Include="MockHtmlService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimingTest\DateTimeCalculatorMock.cs" />
+    <Compile Include="TimingTest\TimingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -42,8 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusNetwork.cs" />
+    <Compile Include="BusNetworkSaveRetrieve.cs" />
+    <Compile Include="Searching\SearchUtils.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Timing\DateTimeCalculator.cs" />
+    <Compile Include="Timing\IDateTimeCalculator.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timing\Timing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -61,6 +67,7 @@
       <Name>tursibNow.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -47,13 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusNetworkSaveRetrieve.cs" />
     <Compile Include="HtmlData\BusNetworkHtml.cs" />
     <Compile Include="HtmlData\HtmlService\HtmlPageRetrieve.cs" />
     <Compile Include="HtmlData\HtmlService\HtmlServiceTursibRo.cs" />
     <Compile Include="HtmlData\HtmlService\HtmlServiceUtil.cs" />
-    <Compile Include="HtmlData\HtmlService\IHtmlService.cs" />
-    <Compile Include="IBusNetwork.cs" />
+    <Compile Include="HtmlData\HtmlService\IBusHtmlService.cs" />
     <Compile Include="JsonData\BusNetworkJson.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

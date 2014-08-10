@@ -10,6 +10,7 @@ namespace tursibNow.Model
     /// Represents a timetable for a given station.
     /// Buses have different timetable depending on the day of the week.
     /// </summary>
+    [Serializable]
     public class TimeTable
     {
         /// <summary>

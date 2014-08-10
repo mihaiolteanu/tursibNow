@@ -7,7 +7,7 @@ namespace tursibNow.Data
     static class HtmlServiceUtil
     {
         /// <summary>
-        /// Returns all strings from a list that can be evaluated as a datetime object as a datetime list, ignores the rest.
+        /// Returns all strings from a list that can be evaluated as a datetime object, as a datetime list, ignores the rest.
         /// </summary>
         /// <param name="dateTimeStr"></param>
         /// <returns></returns>

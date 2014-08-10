@@ -71,7 +71,7 @@ namespace tursibNow.AndroidUI
             {
                 station = _bus.ReverseStations.ElementAt(position);
             }
-            view.FindViewById<TextView>(Resource.Id.StationNameTextView).Text = station.Name;
+            view.FindViewById<TextView>(Resource.Id.StationNameTextView).Text = station.Name.ToUpper();
 
             return view;
         }

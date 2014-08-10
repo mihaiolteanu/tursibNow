@@ -7,7 +7,7 @@ namespace tursibNow.Data
     /// <summary>
     /// Implements the retrieval of html web pages from www.tursib.ro.
     /// </summary>
-    class HtmlServiceTursibRo : IHtmlService
+    public class HtmlServiceTursibRo : IBusHtmlService
     {
         // Tursib official web page - starting place for all html pages to be retrieved
         Uri tursibUri = new Uri("http://tursib.ro/");

@@ -3,89 +3,99 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1">
-        <TableLayout
+        android:id="@+id/scrollView1">
+        <LinearLayout
+            android:orientation="vertical"
             android:minWidth="25px"
             android:minHeight="25px"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tableLayout1"
-            android:stretchColumns="*">
-            <TableRow
-                android:id="@+id/tableRow1"
+            android:layout_height="fill_parent"
+            android:id="@+id/linearLayout1">
+            <TableLayout
                 android:minWidth="25px"
-                android:minHeight="25px">
-                <LinearLayout
-                    android:orientation="vertical"
+                android:minHeight="25px"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableLayout1"
+                android:stretchColumns="*">
+                <TableRow
+                    android:id="@+id/tableRow1"
                     android:minWidth="25px"
-                    android:minHeight="25px"
-                    android:layout_column="0"
-                    android:id="@+id/linearLayout2"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="Weekdays"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView1"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </TableRow>
-            <TextView
-                android:text="Text"
-                android:id="@+id/StationsWeekdaysTextView" />
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:minWidth="25px"
-                android:minHeight="25px">
-                <LinearLayout
-                    android:orientation="vertical"
+                    android:minHeight="25px">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_column="0"
+                        android:id="@+id/linearLayout2"
+                        android:padding="5dp">
+                        <TextView
+                            android:text="Weekdays"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView1"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </TableRow>
+                <TextView
+                    android:text="Text"
+                    android:id="@+id/StationsWeekdaysTextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TableRow
+                    android:id="@+id/tableRow2"
                     android:minWidth="25px"
-                    android:minHeight="25px"
-                    android:layout_column="0"
-                    android:id="@+id/linearLayout3"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="Saturday"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView2"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </TableRow>
-            <TextView
-                android:text="Text"
-                android:id="@+id/StationsSaturdayTextView" />
-            <TableRow
-                android:id="@+id/tableRow3"
-                android:minWidth="25px"
-                android:minHeight="25px">
-                <LinearLayout
-                    android:orientation="vertical"
+                    android:minHeight="25px">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_column="0"
+                        android:id="@+id/linearLayout3"
+                        android:padding="5dp">
+                        <TextView
+                            android:text="Saturday"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView2"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </TableRow>
+                <TextView
+                    android:text="Text"
+                    android:id="@+id/StationsSaturdayTextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TableRow
+                    android:id="@+id/tableRow3"
                     android:minWidth="25px"
-                    android:minHeight="25px"
-                    android:layout_column="0"
-                    android:id="@+id/linearLayout4"
-                    android:padding="5dp">
-                    <TextView
-                        android:text="Sunday"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView3"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </TableRow>
-            <TextView
-                android:text="Text"
-                android:id="@+id/StationsSundayTextView" />
-        </TableLayout>
-    </LinearLayout>
+                    android:minHeight="25px">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_column="0"
+                        android:id="@+id/linearLayout4"
+                        android:padding="5dp">
+                        <TextView
+                            android:text="Sunday"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView3"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </TableRow>
+                <TextView
+                    android:text="Text"
+                    android:id="@+id/StationsSundayTextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

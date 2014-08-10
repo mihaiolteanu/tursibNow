@@ -8,23 +8,11 @@ namespace tursibNow.Data
     /// <summary>
     /// Save and retrieve the bus network information to and from Json files
     /// </summary>
-    public class BusNetworkJson : IBusNetwork
+    public class BusNetworkJson
     {
         string _storagePath;
         List<Bus> _buses = new List<Bus>();
-
-        public IEnumerable<Bus> Buses
-        {
-            get
-            {
-                // Update the bus network list if it's empty.
-                if (_buses.Count == 0)
-                {
-                    UpdateBusNetwork();
-                }
-                return _buses;
-            }
-        }
+        public IEnumerable<Bus> Buses {get {return _buses; } }
 
         /// <summary>
         /// Saves and retrieves a bus network (bus list) from json files
@@ -33,10 +21,14 @@ namespace tursibNow.Data
         public BusNetworkJson(string storagePath)
         {
             _storagePath = storagePath;
-
+            Android.Util.Log.Info("storagePat", _storagePath);
             if (!Directory.Exists(_storagePath))
             {
                 Directory.CreateDirectory(_storagePath);
+            }
+            else
+            {
+                Update();
             }
         }
 
@@ -44,20 +36,17 @@ namespace tursibNow.Data
         /// Saves each bus in a bus network to a Json file
         /// </summary>
         /// <param name="busNetwork">Bus network to be save to Json files</param>
-        public void SaveBusNetwork (IEnumerable<Bus> busNetwork)
+        public void Save(IEnumerable<Bus> busNetwork)
         {
             foreach(Bus bus in busNetwork)
             {
                 string busString = JsonConvert.SerializeObject(bus);
-
                 File.WriteAllText(GetFileName(bus.Number), busString);
             }   
         }
 
-        /// <summary>
-        /// Updates the bus network list from saved json files
-        /// </summary>
-        private void UpdateBusNetwork()
+        // Updates the bus network list from saved json files.
+        private void Update()
         {
             _buses.Clear();
             string[] filenames = Directory.GetFiles(_storagePath, "*.json");
@@ -70,13 +59,11 @@ namespace tursibNow.Data
             }
         }
 
-        /// <summary>
-        /// Each bus has a unique json file, based on the bus number.
-        /// </summary>
-        /// <returns>Path to where the json file for this bus is located</returns>
+        // Each bus has a unique json file, based on the bus number.
+        // Returns the path to where the json file for this bus is located.
         private string GetFileName(string busNumber)
         {
-            // make all files have the bus number with 3 digits
+            // Make all files have the bus number with 3 digits
             if (busNumber.Length == 2)
             {
                 busNumber = "0" + busNumber;

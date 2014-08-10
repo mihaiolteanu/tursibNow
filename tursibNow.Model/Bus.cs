@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace tursibNow.Model
 {
     /// <summary>
     /// Represents a single bus, complete with bus name, number and stations
     /// </summary>
+    [Serializable]
     public class Bus
     {
         //example "11: Cedonia - Sc Continental"

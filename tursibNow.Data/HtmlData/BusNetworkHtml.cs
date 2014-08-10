@@ -9,10 +9,10 @@ namespace tursibNow.Data
     /// <summary>
     /// Retrieves the bus network information from html pages
     /// </summary>
-    public class BusNetworkHtml : IBusNetwork
+    public class BusNetworkHtml
     {
         // Used to retrieve the html page from which to extract the bus info
-        IHtmlService _htmlService;
+        IBusHtmlService _htmlService;
         
         List<Bus> _buses = new List<Bus>();
         public IEnumerable<Bus> Buses { get { return _buses; } }
@@ -21,7 +21,7 @@ namespace tursibNow.Data
         /// Builds a list of buses from a html file
         /// </summary>
         /// <param name="htmlService">Html service used to retrieve html pages</param>
-        public BusNetworkHtml(IHtmlService htmlService)
+        public BusNetworkHtml(IBusHtmlService htmlService)
         {
             _htmlService = htmlService;
             // Get the names and numbers of buses as a html page
@@ -80,7 +80,7 @@ namespace tursibNow.Data
                 from statieLink in doc.DocumentNode.Descendants("a")
                 where ((statieLink.Attributes["class"] != null) && (statieLink.Attributes["class"].Value == "statie-link")) &&
                       ((statieLink.Attributes["href"] != null) && (statieLink.Attributes["href"].Value.Contains(direction.ToString())))
-                select statieLink.InnerHtml.ToLower();
+                select statieLink.InnerHtml;
 
             return stations;
         }

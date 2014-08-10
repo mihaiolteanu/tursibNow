@@ -13,7 +13,7 @@ using tursibNow.Model;
 
 namespace tursibNow.AndroidUI
 {
-    [Activity(Label = "Bus Stations", Theme = "@android:style/Theme.Light")]
+    [Activity(Label = "Bus Stations")]
     public class BusStationsActivity : ListActivity
     {
         Bus _bus;
@@ -31,11 +31,25 @@ namespace tursibNow.AndroidUI
 
             SetContentView(Resource.Layout.Main);
 
+            // Add next bus hours as a string, to the station names
+            Bus newBus = Utils.DeepClone(_bus);
+            Timing timing = new Timing();
+
+            foreach (var station in newBus.DirectStations)
+            {
+                station.Name = station.Name.ToUpper() + " ( " + timing.NextTimes(station.TimeTable, 2).DateTimeListToString() + " )";
+            }
+
+            foreach (var station in newBus.ReverseStations)
+            {
+                station.Name = station.Name.ToUpper() + " ( " + timing.NextTimes(station.TimeTable, 2).DateTimeListToString() + " )";
+            }
+
             // Labels for each stations list
             Dictionary<string, List<Station>> busStationsLabels = new Dictionary<string, List<Station>>
             {
-                {"Direct Routes", _bus.DirectStations.ToList()},
-                {"Reverse Routes", _bus.ReverseStations.ToList()}
+                {"Direct Routes", newBus.DirectStations.ToList()},
+                {"Reverse Routes", newBus.ReverseStations.ToList()}
             };
 
             var adapter = CreateAdapter(busStationsLabels);
@@ -90,6 +104,6 @@ namespace tursibNow.AndroidUI
                 adapter.AddSection(label, new ArrayAdapter<T>(this, Resource.Layout.ListItem, section));
             }
             return adapter;
-        }
+        } 
     }
 }

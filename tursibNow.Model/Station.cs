@@ -9,6 +9,7 @@ namespace tursibNow.Model
     /// <summary>
     /// Represents one bus stations, complete with the station name and timetable.
     /// </summary>
+    [Serializable]
     public class Station : IHasLabel, IComparable<Station>
     {
         /// <summary>

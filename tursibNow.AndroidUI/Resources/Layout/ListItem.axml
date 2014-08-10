@@ -3,7 +3,6 @@
     android:id="@+id/list_item_title"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingTop="10dip"
-    android:paddingBottom="10dip"
-    android:paddingLeft="15dip"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:padding="5dp"
+    android:paddingLeft="15dip" />

@@ -9,17 +9,36 @@ using tursibNow.Data;
 
 namespace tursibNow.Core
 {
+    /// <summary>
+    /// Retrieves a bus network from the StoragePath. If the path is empty, a new one is created. 
+    /// Uses the path specified by StoragePath to save/update the bus info.
+    /// Use:
+    /// - Set the StoragePath to a folder location
+    /// - Retrieve the bus network with the Buses attribute
+    /// </summary>
     public class BusNetwork
     {
         // Storage path for files containing the bus network info
-        static string _storagePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path, "tursibNow");
-        
-        // Retrieve buses info from the storage path
-        public static List<Bus> Buses = new BusNetworkSaveRetrieve(_storagePath).Buses as List<Bus>;
+        public static string StoragePath { get; set; }
 
-        static BusNetwork()
+        private static List<Bus> _buses;
+        public static List<Bus> Buses 
+        { 
+            get 
+            {
+                if (_buses == null)
+                {
+                    Update();
+                }
+                return _buses; 
+            } 
+        }
+        
+        static void Update()
         {
-            
+            var htmlService = new HtmlServiceTursibRo();
+            var busSaveRetrieve = new BusNetworkSaveRetrieve(StoragePath, htmlService);
+            _buses = busSaveRetrieve.Buses as List<Bus>;
         }
     }
 }
