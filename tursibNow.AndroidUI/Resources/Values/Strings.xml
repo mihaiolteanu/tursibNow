@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">tursibNow</string>
+  <string name="ApplicationName">tursibNow</string>
+  
+  <string name="DirectRoutes">Direct Routes</string>
+  <string name="ReverseRoutes">Reverse Routes</string>
+  
+  <string name="Weekdays">Weekdays</string>
+  <string name="Saturday">Saturday</string>
+  <string name="Sunday">Sunday</string>
+
+  <string name="BusSearch">Bus Search</string>
+  <string name="Search">Search</string>
+  <string name="Departure">Departure</string>
+  <string name="Arrival">Arrival</string>
+  <string name="InvalidStationTitle">Invalid Station</string>
+  <string name="InvalidStationMessage">Please provide a valid bus station name</string>
+  <string name="DepartureMessage">The departure bus station name you provided does not exist</string>
+  <string name="ArrivalMessage">The arrival bus station name you provided does not exist</string>
 </resources>

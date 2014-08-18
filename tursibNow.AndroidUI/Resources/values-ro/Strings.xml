@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="ApplicationName">tursibNow</string>
+  
+  <string name="DirectRoutes">Dus</string>
+  <string name="ReverseRoutes">Intors</string>
+  
+  <string name="Weekdays">Luni-Vineri</string>
+  <string name="Saturday">Sambata</string>
+  <string name="Sunday">Duminica</string>
+
+  <string name="BusSearch">Cautare autobuz</string>
+  <string name="Search">Cautare</string>
+  <string name="Departure">Plecare</string>
+  <string name="Arrival">Sosire</string>
+  <string name="InvalidStationTitle">Statie invalida</string>
+  <string name="InvalidStationMessage">Introduceti o statie de autobuz valida</string>
+  <string name="DepartureMessage">Statia de plecare cautata nu exista</string>
+  <string name="ArrivalMessage">Statia de sosire cautata nu exista</string>
+</resources>

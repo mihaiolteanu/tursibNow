@@ -38,7 +38,7 @@
                             android:text="Weekdays"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView1"
+                            android:id="@+id/BusTimetableWeekdays"
                             android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -46,7 +46,8 @@
                 <TextView
                     android:text="Text"
                     android:id="@+id/StationsWeekdaysTextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:padding="10dp" />
                 <TableRow
                     android:id="@+id/tableRow2"
                     android:minWidth="25px"
@@ -62,7 +63,7 @@
                             android:text="Saturday"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView2"
+                            android:id="@+id/BusTimetableSaturday"
                             android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -70,7 +71,8 @@
                 <TextView
                     android:text="Text"
                     android:id="@+id/StationsSaturdayTextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:padding="10dp" />
                 <TableRow
                     android:id="@+id/tableRow3"
                     android:minWidth="25px"
@@ -86,7 +88,7 @@
                             android:text="Sunday"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView3"
+                            android:id="@+id/BusTimetableSunday"
                             android:textSize="20dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -94,7 +96,8 @@
                 <TextView
                     android:text="Text"
                     android:id="@+id/StationsSundayTextView"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:padding="10dp" />
             </TableLayout>
         </LinearLayout>
     </ScrollView>

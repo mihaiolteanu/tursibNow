@@ -62,22 +62,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\BusOverviewActivity.cs" />
+    <Compile Include="Activities\BusOverview.cs" />
+    <Compile Include="Activities\BusSearch.cs" />
+    <Compile Include="Activities\BusSearchResults.cs" />
     <Compile Include="Adapters\BusOverviewViewAdapter.cs" />
-    <Compile Include="Activities\BusStationsActivity.cs" />
+    <Compile Include="Activities\BusStations.cs" />
+    <Compile Include="Adapters\BusSearchResultsViewAdapter.cs" />
     <Compile Include="Adapters\BusStationsViewAdapter.cs" />
-    <Compile Include="Activities\BusTimeTableActivity.cs" />
+    <Compile Include="Activities\BusTimeTable.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Adapters\SeparatedListAdapter.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\Layout\BusOverviewItem.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout\BusStations.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\BusStationsItem.axml">
@@ -89,6 +90,15 @@
     <AndroidResource Include="Resources\Layout\ListHeader.axml" />
     <AndroidResource Include="Resources\Layout\ListItem.axml" />
     <AndroidResource Include="Resources\Layout\Main.axml" />
+    <AndroidResource Include="Resources\Layout\BusSearch.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\BusSearchResults.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\BusSearchResultsItem.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\BusOverview.axml" />
@@ -101,6 +111,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\Menu\SearchBuses.xml" />
+    <AndroidResource Include="Resources\Drawable\ic_action_search.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_search.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_search.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_search.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_search.png" />
+    <AndroidResource Include="Resources\Drawable\ic_action_favorite.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_favorite.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_favorite.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_favorite.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_favorite.png" />
+    <AndroidResource Include="Resources\Menu\AddFavoriteStation.xml" />
+    <AndroidResource Include="Resources\values-ro\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tursibNow.Core\tursibNow.Core.csproj">
@@ -112,6 +135,7 @@
       <Name>tursibNow.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.

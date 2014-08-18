@@ -33,6 +33,41 @@ namespace tursibNow.Core
                 return _buses; 
             } 
         }
+
+        /// <summary>
+        /// Returns a list of all station names
+        /// </summary>
+        public static string[] StationNames
+        {
+            get
+            {
+                return SearchUtils.StationNames(SearchUtils.StationList(Buses));
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the bus network contains a station with the given name
+        /// </summary>
+        public static bool ContainsStationName(string stationName)
+        {
+            return Buses.ContainsStationName(stationName);
+        }
+
+        /// <summary>
+        /// Returns a list of buses that have the given route
+        /// </summary>
+        public static IEnumerable<Tuple<Bus, Station>> BusRoutes(string departure, string arrival)
+        {
+            return Buses.BusRoutes(departure, arrival);
+        }
+
+        /// <summary>
+        /// Returns the station timetable that has the given route
+        /// </summary>
+        public static TimeTable RouteTimetable(Bus bus, string departure, string arrival)
+        {
+            return bus.SearchUtilsRouteTimetable(departure, arrival);
+        }
         
         static void Update()
         {

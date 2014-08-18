@@ -12,7 +12,7 @@ using tursibNow.Model;
 namespace tursibNow.AndroidUI
 {
     [Activity(Label = "BusTimeTable")]
-    public class BusTimeTableActivity : Activity
+    public class BusTimeTable : Activity
     {
         TimeTable _stationTimetable = new TimeTable();
         string _busNumber = string.Empty;
@@ -32,6 +32,13 @@ namespace tursibNow.AndroidUI
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.BusTimetable);
+
+            FindViewById<TextView>(Resource.Id.BusTimetableWeekdays).Text =
+                this.GetStringResource(Resource.String.Weekdays);
+            FindViewById<TextView>(Resource.Id.BusTimetableSaturday).Text =
+                this.GetStringResource(Resource.String.Saturday);
+            FindViewById<TextView>(Resource.Id.BusTimetableSunday).Text =
+                this.GetStringResource(Resource.String.Sunday);
 
             FindViewById<TextView>(Resource.Id.StationsWeekdaysTextView).Text =
                 _stationTimetable.WeekDays.DateTimeListToString();
@@ -69,6 +76,32 @@ namespace tursibNow.AndroidUI
         {
             base.OnAttachedToWindow();
             Window.SetTitle(_busNumber + " - " + _stationName.ToUpper());
+        }
+
+        protected void BusClicked(object sender, ListView.ItemClickEventArgs e)
+        {
+            Intent busStationsIntent = new Intent(this, typeof(BusStations));
+            busStationsIntent.PutExtra("busNumber", e.Id.ToString());
+
+            StartActivity(busStationsIntent);
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.AddFavoriteStation, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.addFavoriteStation:
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
         }
     }
 }

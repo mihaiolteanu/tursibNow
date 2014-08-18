@@ -14,7 +14,7 @@ using tursibNow.Model;
 namespace tursibNow.AndroidUI
 {
     [Activity(Label = "Bus Stations")]
-    public class BusStationsActivity : ListActivity
+    public class BusStations : ListActivity
     {
         Bus _bus;
 
@@ -32,24 +32,24 @@ namespace tursibNow.AndroidUI
             SetContentView(Resource.Layout.Main);
 
             // Add next bus hours as a string, to the station names
-            Bus newBus = Utils.DeepClone(_bus);
+            Bus newBus = Core.Utils.DeepClone(_bus);
             Timing timing = new Timing();
 
             foreach (var station in newBus.DirectStations)
             {
-                station.Name = station.Name.ToUpper() + " ( " + timing.NextTimes(station.TimeTable, 2).DateTimeListToString() + " )";
+                station.Name = station.Name + " - " + timing.NextTimes(station.TimeTable, 3).DateTimeListToString();
             }
 
             foreach (var station in newBus.ReverseStations)
             {
-                station.Name = station.Name.ToUpper() + " ( " + timing.NextTimes(station.TimeTable, 2).DateTimeListToString() + " )";
+                station.Name = station.Name + " - " + timing.NextTimes(station.TimeTable, 3).DateTimeListToString();
             }
 
             // Labels for each stations list
             Dictionary<string, List<Station>> busStationsLabels = new Dictionary<string, List<Station>>
             {
-                {"Direct Routes", newBus.DirectStations.ToList()},
-                {"Reverse Routes", newBus.ReverseStations.ToList()}
+                {this.GetStringResource(Resource.String.DirectRoutes), newBus.DirectStations.ToList()},
+                {this.GetStringResource(Resource.String.ReverseRoutes), newBus.ReverseStations.ToList()}
             };
 
             var adapter = CreateAdapter(busStationsLabels);
@@ -69,7 +69,7 @@ namespace tursibNow.AndroidUI
             // The direct stations label adds one more list item
             calculatedId--;
 
-            Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTableActivity));
+            Intent stationTimeTableIntent = new Intent(this, typeof(BusTimeTable));
             stationTimeTableIntent.PutExtra("busNumber", _bus.Number);
 
             int nDirectStations = _bus.DirectStations.ToList().Count;

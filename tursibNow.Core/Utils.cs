@@ -1,19 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-using tursibNow.Model;
+using Android.App;
 
 namespace tursibNow.Core
 {
@@ -34,13 +25,18 @@ namespace tursibNow.Core
                 // Avoid "," at the end of the returned string
                 if (first)
                 {
-                    toReturn += time.Hour + ":" + time.Minute.ToString("D2");
+                    toReturn += DateTimeToString(time);
                     first = false;
                     continue; // Next element
                 }
-                toReturn += ", " + time.Hour + ":" + time.Minute.ToString("D2");
+                toReturn += ", " + DateTimeToString(time);
             }
             return toReturn;
+        }
+
+        public static string DateTimeToString(DateTime dateTime)
+        {
+            return dateTime.Hour + ":" + dateTime.Minute.ToString("D2");
         }
 
         /// <summary>
@@ -60,6 +56,17 @@ namespace tursibNow.Core
 
                 return (T)formatter.Deserialize(ms);
             }
+        }
+
+        public static void AlertDialogCreate(this Context context, string title, string message)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            AlertDialog alertDialog = builder.Create();
+
+            alertDialog.SetTitle(title);
+            alertDialog.SetMessage(message);
+            alertDialog.SetButton("OK", (s, ev) => { });
+            alertDialog.Show();
         }
     }
 }

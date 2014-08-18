@@ -1,0 +1,6 @@
+﻿<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/searchBuses"
+  android:icon="@drawable/ic_action_search"
+  android:title="Bus Search"
+  android:showAsAction="ifRoom" />
+</menu>
